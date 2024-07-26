@@ -18,9 +18,7 @@ class PhoneauthViewModel extends ChangeNotifier {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phoneController.text,
-        verificationCompleted: (PhoneAuthCredential credential) {
-          // Optionally handle automatic sign-in
-        },
+        verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException error) {
           _errorMessage = error.message;
           _isVerificationSuccessful = false;
@@ -50,7 +48,7 @@ class PhoneauthViewModel extends ChangeNotifier {
         smsCode: otpController.text.trim(),
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       _errorMessage = "An unexpected error occurred: $e";
       notifyListeners();

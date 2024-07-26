@@ -9,8 +9,14 @@ class OtpView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<PhoneauthViewModel>(context);
     return Scaffold(
+      backgroundColor: Colors.amber.shade600,
       appBar: AppBar(
-        title: const Text('OTP Screen'),
+        backgroundColor: Colors.amber.shade600,
+        elevation: 5,
+        title: const Text(
+          'OTP',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -22,12 +28,21 @@ class OtpView extends StatelessWidget {
               controller: viewModel.otpController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: 'Enter the OTP',
-                suffixIcon: const Icon(Icons.sms),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
+                  hintText: 'Enter the OTP',
+                  suffixIcon: const Icon(
+                    Icons.sms,
+                    color: Colors.white,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  hintStyle: const TextStyle(color: Colors.white)),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           const SizedBox(height: 30),
