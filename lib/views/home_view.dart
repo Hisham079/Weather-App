@@ -43,11 +43,11 @@ class HomeView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (weatherViewModel.errorMessage != null) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              _showErrorDialog(context, weatherViewModel.errorMessage!);
+              showErrorDialog(context, weatherViewModel.errorMessage!);
               weatherViewModel.clearError();
             });
-          }
-          if (weatherViewModel.weather == null) {
+            return Container(); // To avoid showing the error message container
+          } else if (weatherViewModel.weather == null) {
             return Center(
               child: Text(
                 'Unable to fetch weather data',
@@ -118,27 +118,27 @@ class HomeView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        WeatherDetailtile(
+                        WeatherDetailTile(
                             icon: Icons.thermostat,
                             color: Colors.red.shade200,
                             label: 'Temp max',
                             value:
                                 '${weatherViewModel.weather!.tempMax.toStringAsFixed(0)} °C'),
-                        WeatherDetailtile(
+                        WeatherDetailTile(
                             icon: Icons.thermostat,
                             color: Colors.blue,
                             label: 'Temp min',
                             value:
                                 '${weatherViewModel.weather!.tempMin.toStringAsFixed(0)} °C'),
-                        WeatherDetailtile(
+                        WeatherDetailTile(
                             icon: Icons.water_drop_outlined,
                             label: 'Humidity',
                             value: '${weatherViewModel.weather!.humidity} %'),
-                        WeatherDetailtile(
+                        WeatherDetailTile(
                             icon: Icons.cloud_outlined,
                             label: 'Cloudy',
                             value: '${weatherViewModel.weather!.cloudiness} %'),
-                        WeatherDetailtile(
+                        WeatherDetailTile(
                             icon: Icons.air_outlined,
                             label: 'Wind Speed',
                             value: '${weatherViewModel.weather!.windSpeed} m/s')
@@ -152,25 +152,5 @@ class HomeView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  void _showErrorDialog(BuildContext context, String message) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    });
   }
 }

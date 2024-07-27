@@ -74,7 +74,6 @@ class PhoneauthView extends StatelessWidget {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   await viewModel.verifyPhonenumber(context);
-                  Navigator.pushNamed(context, '/otp');
                 }
               },
               child: const Text('Verify phone number'),

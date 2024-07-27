@@ -9,10 +9,12 @@ class PhoneauthViewModel extends ChangeNotifier {
   String _verificationId = '';
   String? _errorMessage;
   bool _isVerificationSuccessful = false;
+  bool _isLoading = false;
 
   String get verificationId => _verificationId;
   String? get errorMessage => _errorMessage;
   bool get isVerificationSuccessful => _isVerificationSuccessful;
+  bool get isLoading => _isLoading;
 
   Future<void> verifyPhonenumber(BuildContext context) async {
     try {
@@ -22,21 +24,26 @@ class PhoneauthViewModel extends ChangeNotifier {
         verificationFailed: (FirebaseAuthException error) {
           _errorMessage = error.message;
           _isVerificationSuccessful = false;
+          _isLoading = false;
           notifyListeners();
         },
         codeSent: (String verificationId, int? forceResendingToken) {
           _verificationId = verificationId;
           _isVerificationSuccessful = true;
+          _isLoading = false;
           notifyListeners();
+          Navigator.pushNamed(context, '/otp');
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           _verificationId = verificationId;
+          _isLoading = false;
           notifyListeners();
         },
       );
     } catch (e) {
       _errorMessage = "An unexpected error occurred: $e";
       _isVerificationSuccessful = false;
+      _isLoading = false;
       notifyListeners();
     }
   }

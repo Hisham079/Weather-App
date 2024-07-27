@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WeatherDetailtile extends StatelessWidget {
-  WeatherDetailtile(
+class WeatherDetailTile extends StatelessWidget {
+  WeatherDetailTile(
       {super.key,
       required this.icon,
       required this.label,
